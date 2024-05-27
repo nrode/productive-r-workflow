@@ -1,0 +1,31 @@
+---
+title: "Test Doc"
+format: html
+editor: visual
+---
+
+
+# Running Code
+
+```{r}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+
+# Load the package (not that it is not part of the core tidyverse!)
+library(readxl)
+
+# Read a file
+data <- read_excel("./input/data.xlsx", na = "NA")
+
+data %>%
+  filter(!is.na(bill_length_mm), species == "Adelie") %>%
+  summarise(mean_bill_length = mean(bill_length_mm)) %>%
+  pull(mean_bill_length) %>%
+  round(2)
+
+data %>%
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species, shape = species)) +
+  geom_point(size = 6)
+
+```
